@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.eden.eva.dao.IReportDataDAO">
+
+    <sql id="Base_Column_List">
+      id,
+	  rep_id repId,
+	  period_id periodId,
+	  rep_key repKey,
+	  rep_val repVal,
+	  create_date createDate
+    </sql>
+    
+    <sql id="Query_condition">
+      <trim prefix="WHERE" prefixOverrides="AND | OR">
+              <if test="condition.repId!=null">
+			  	AND rep_id Like '%${condition.repId}%'
+			  </if>
+              <if test="condition.periodId!=null">
+			  	AND period_id Like '%${condition.periodId}%'
+			  </if>
+              <if test="condition.repKey!=null">
+			  	AND rep_key Like '%${condition.repKey}%'
+			  </if>
+              <if test="condition.repVal!=null">
+			  	AND rep_val Like '%${condition.repVal}%'
+			  </if>
+              <if test="condition.createDate!=null">
+			  	AND create_date Like '%${condition.createDate}%'
+			  </if>
+        </trim>
+    </sql>
+    
+    <insert id="insert" parameterType="ReportData">
+        INSERT INTO t_eva_reportdata (
+	        id,
+		    rep_id,
+		    period_id,
+		    rep_key,
+		    rep_val,
+		    create_date
+        ) VALUES (
+         	#{id},
+       		#{repId},
+       		#{periodId},
+       		#{repKey},
+       		#{repVal},
+       		#{createDate}
+        )
+    </insert>
+
+    <!-- 更新 -->
+   	<update id="update" parameterType="ReportData">
+        UPDATE t_eva_reportdata
+        <trim prefix="SET" suffixOverrides=",">
+          <if test="repId!=null">
+           rep_id=#{repId},
+          </if>
+          <if test="periodId!=null">
+           period_id=#{periodId},
+          </if>
+          <if test="repKey!=null">
+           rep_key=#{repKey},
+          </if>
+          <if test="repVal!=null">
+           rep_val=#{repVal},
+          </if>
+          <if test="createDate!=null">
+           create_date=#{createDate},
+          </if>
+        </trim>
+        WHERE
+        id =#{id}
+    </update>
+
+   	<update id="updateMap">
+        UPDATE t_eva_reportdata
+        <trim prefix="SET" suffixOverrides=",">
+          <if test="map.repId!=null">        
+           rep_id=#{map.repId},
+          </if>
+          <if test="map.periodId!=null">        
+           period_id=#{map.periodId},
+          </if>
+          <if test="map.repKey!=null">        
+           rep_key=#{map.repKey},
+          </if>
+          <if test="map.repVal!=null">        
+           rep_val=#{map.repVal},
+          </if>
+          <if test="map.createDate!=null">        
+           create_date=#{map.createDate},
+          </if>
+        </trim>
+        WHERE
+       id = #{ map.id }
+	</update>
+
+
+     <insert id="insertMap" >
+        INSERT INTO t_eva_reportdata (
+             	id,
+			 	rep_id,
+			 	period_id,
+			 	rep_key,
+			 	rep_val,
+			 	create_date,
+        ) VALUES (
+              	#{map.id},
+		    	#{map.repId},
+		    	#{map.periodId},
+		    	#{map.repKey},
+		    	#{map.repVal},
+		    	#{map.createDate},
+        )
+    </insert>
+
+
+  	<update id="updateNull" parameterType="ReportData">
+        UPDATE t_eva_reportdata
+        <trim prefix="SET" suffixOverrides=","> 
+			    rep_id=#{repId},
+			    period_id=#{periodId},
+			    rep_key=#{repKey},
+			    rep_val=#{repVal},
+			    create_date=#{createDate},
+        </trim>
+        WHERE
+        id =#{id}
+    </update>
+
+   	<delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM t_eva_reportdata
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id=#{id}
+        </trim>
+    </delete>
+
+
+ 	<delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM  t_eva_reportdata 
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="map.id!=null">
+                AND id = #{map.id}
+            </if>				        
+			<if test="map.repId!=null">
+				AND rep_id = #{map.repId}
+			</if>				
+			<if test="map.periodId!=null">
+				AND period_id = #{map.periodId}
+			</if>				
+			<if test="map.repKey!=null">
+				AND rep_key = #{map.repKey}
+			</if>				
+			<if test="map.repVal!=null">
+				AND rep_val = #{map.repVal}
+			</if>				
+			<if test="map.createDate!=null">
+				AND create_date = #{map.createDate}
+			</if>				
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM t_eva_reportdata WHERE
+        ${property}=#{value}
+    </delete>
+
+    <select id="fetch" parameterType="java.lang.Integer" resultType="ReportData">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_reportdata
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id =#{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="ReportData">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_reportdata WHERE
+        ${property}=#{value} 
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="ReportData">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_reportdata WHERE
+       	${property} =#{value}
+    </select>
+
+    <select id="findAll" resultType="ReportData">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_reportdata
+    </select>
+
+    <select id="queryPage" resultType="ReportData">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_reportdata
+        <include refid="Query_condition" />    
+        <if test="condition.sort != null">
+			order by ${condition.sort}
+		</if>
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="ReportData">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_reportdata
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id!=null">
+				AND id like '%#{id}%'
+			</if>
+			<if test="repId!=null">
+				AND rep_id Like '%$ {condition.repId}%'
+			</if>
+			<if test="periodId!=null">
+				AND period_id Like '%$ {condition.periodId}%'
+			</if>
+			<if test="repKey!=null">
+				AND rep_key Like '%$ {condition.repKey}%'
+			</if>
+			<if test="repVal!=null">
+				AND rep_val Like '%$ {condition.repVal}%'
+			</if>
+			<if test="createDate!=null">
+				AND create_date Like '%$ {condition.createDate}%'
+			</if>
+        </trim>
+    </select>
+
+
+ 	<select id="queryList" parameterType="java.util.Map" resultType="ReportData">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_reportdata
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="map.id!=null">
+                AND id = #{map.id}
+            </if>
+			<if test="map.repId!=null">
+				AND rep_id = #{map.repId}
+			</if>
+			<if test="map.periodId!=null">
+				AND period_id = #{map.periodId}
+			</if>
+			<if test="map.repKey!=null">
+				AND rep_key = #{map.repKey}
+			</if>
+			<if test="map.repVal!=null">
+				AND rep_val = #{map.repVal}
+			</if>
+			<if test="map.createDate!=null">
+				AND create_date = #{map.createDate}
+			</if>
+        </trim>
+        ORDER BY ${orderBy} ${sortBy}
+    </select>
+
+   	<select id="queryOne" parameterType="java.util.Map" resultType="ReportData">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_reportdata
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="map.id!=null">
+                AND id = #{map.id}
+            </if>
+			<if test="map.repId!=null">
+				AND rep_id = #{map.repId}
+			</if>
+			<if test="map.periodId!=null">
+				AND period_id = #{map.periodId}
+			</if>
+			<if test="map.repKey!=null">
+				AND rep_key = #{map.repKey}
+			</if>
+			<if test="map.repVal!=null">
+				AND rep_val = #{map.repVal}
+			</if>
+			<if test="map.createDate!=null">
+				AND create_date = #{map.createDate}
+			</if>
+        </trim>
+        limit 0,1
+    </select>
+
+  	<select id="count" resultType="java.lang.Integer">
+        SELECT count(id) FROM t_eva_reportdata
+        <include refid="Query_condition" />
+    </select>
+
+	<select id="selectMaxId" resultType="java.lang.Integer">
+	    SELECT
+	    MAX(id)
+	    FROM t_eva_reportdata
+	</select>
+
+</mapper>
+

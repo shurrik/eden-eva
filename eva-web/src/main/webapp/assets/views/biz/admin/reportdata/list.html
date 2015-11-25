@@ -1,0 +1,101 @@
+<div ng-controller="reportdataCtrl">
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="报表数据">{{ mainTitle }}</h1>
+            <span class="mainDescription">报表数据</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+
+<!-- start: INLINE EDIT EXAMPLE -->
+<div class="container-fluid container-fullw">
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" class="form-inline">
+                <div class="form-group">报表Id：<input type="text"  class="form-control" ng-model="queryMap.repId"></div>						    			
+                <div class="form-group">报表周期Id：<input type="text"  class="form-control" ng-model="queryMap.periodId"></div>						    			
+                <div class="form-group">键：<input type="text"  class="form-control" ng-model="queryMap.repKey"></div>						    			
+                <div class="form-group">值：<input type="text"  class="form-control" ng-model="queryMap.repVal"></div>						    			
+                <div class="form-group">创建时间：<input type="text"  class="form-control" ng-model="queryMap.createDate"></div>						    			
+                <button class="btn btn-primary" type="button" ng-click="query()">查询</button>
+                <button class="btn btn-green" type="button" ng-click="add()">新增</button>
+            </form>
+        </div>
+        <div class="col-md-12">
+            <div>
+                 <div class="table-responsive">
+                    <table ng-table="tableParams" class="table">
+                        <tbody ng-repeat="p in $data">
+                        <tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+			                <td class="rowTd" data-title="'报表Id'"  sortable="'repId'">{{p.repId}}</td>						    			
+			                <td class="rowTd" data-title="'报表周期Id'"  sortable="'periodId'">{{p.periodId}}</td>						    			
+			                <td class="rowTd" data-title="'键'"  sortable="'repKey'">{{p.repKey}}</td>						    			
+			                <td class="rowTd" data-title="'值'"  sortable="'repVal'">{{p.repVal}}</td>						    			
+			                <td class="rowTd" data-title="'创建时间'"  sortable="'createDate'">{{p.createDate}}</td>						    			
+                            <td class="rowTd" >
+                                <div class="pull-right margin-right-10">
+                                <input type=button class="btn btn-primary  btn-sm" id="editRowBtn{{p.id}}" value="编辑"
+                                       ng-click="setEditId(p.id)">
+                                <input type=button class="btn btn-red  btn-sm"  value="删除"
+                                       ng-click="delEditId(p.id)">
+                                 </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pull-right">
+                    <pagination total-items="records" ng-model="queryMap.pageCurrent" max-size="10" class="pagination-sm" boundary-links="true" rotate="false"
+                                items-per-page="queryMap.pageSize" ng-change="pageChanged()" previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"></pagination>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="edit.html">
+    <div class="modal-header">
+        <h3 class="modal-title">编辑</h3>
+    </div>
+    <div class="modal-body">
+        <div class="panel ">
+            <div class="panel-body">
+                <form role="form">
+                    <input type="hidden"  ng-model="reportData.id" value="{{reportData.id}}">
+                    <div class="form-group">
+                        <label for="repId">报表Id</label>
+                        <input type="text" class="form-control" id="repId" ng-model="reportData.repId" value="{{reportData.repId}}">
+                    </div>			                						    			
+                    <div class="form-group">
+                        <label for="periodId">报表周期Id</label>
+                        <input type="text" class="form-control" id="periodId" ng-model="reportData.periodId" value="{{reportData.periodId}}">
+                    </div>			                						    			
+                    <div class="form-group">
+                        <label for="repKey">键</label>
+                        <input type="text" class="form-control" id="repKey" ng-model="reportData.repKey" value="{{reportData.repKey}}">
+                    </div>			                						    			
+                    <div class="form-group">
+                        <label for="repVal">值</label>
+                        <input type="text" class="form-control" id="repVal" ng-model="reportData.repVal" value="{{reportData.repVal}}">
+                    </div>			                						    			
+                    <div class="form-group">
+                        <label for="createDate">创建时间</label>
+                        <input type="text" class="form-control" id="createDate" ng-model="reportData.createDate" value="{{reportData.createDate}}">
+                    </div>			                						    			
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok($event)">确定</button>
+        <button class="btn btn-red" ng-click="cancel($event)">取消</button>
+    </div>
+</script>
+</div>
+<!-- end: INLINE EDIT EXAMPLE -->

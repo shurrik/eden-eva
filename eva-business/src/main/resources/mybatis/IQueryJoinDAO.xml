@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.eden.eva.dao.IQueryJoinDAO">
+
+    <sql id="Base_Column_List">
+      id,
+	  qry_id qryId,
+	  tb_name_l tbNameL,
+	  col_l colL,
+	  tb_name_r tbNameR,
+	  col_r colR,
+	  creater_id createrId,
+	  creater_name createrName,
+	  updater_id updaterId,
+	  updater_name updaterName,
+	  create_date createDate,
+	  update_date updateDate
+    </sql>
+    
+    <sql id="Query_condition">
+      <trim prefix="WHERE" prefixOverrides="AND | OR">
+              <if test="condition.qryId!=null">
+			  	AND qry_id Like '%${condition.qryId}%'
+			  </if>
+              <if test="condition.tbNameL!=null">
+			  	AND tb_name_l Like '%${condition.tbNameL}%'
+			  </if>
+              <if test="condition.colL!=null">
+			  	AND col_l Like '%${condition.colL}%'
+			  </if>
+              <if test="condition.tbNameR!=null">
+			  	AND tb_name_r Like '%${condition.tbNameR}%'
+			  </if>
+              <if test="condition.colR!=null">
+			  	AND col_r Like '%${condition.colR}%'
+			  </if>
+              <if test="condition.createrId!=null">
+			  	AND creater_id Like '%${condition.createrId}%'
+			  </if>
+              <if test="condition.createrName!=null">
+			  	AND creater_name Like '%${condition.createrName}%'
+			  </if>
+              <if test="condition.updaterId!=null">
+			  	AND updater_id Like '%${condition.updaterId}%'
+			  </if>
+              <if test="condition.updaterName!=null">
+			  	AND updater_name Like '%${condition.updaterName}%'
+			  </if>
+              <if test="condition.createDate!=null">
+			  	AND create_date Like '%${condition.createDate}%'
+			  </if>
+              <if test="condition.updateDate!=null">
+			  	AND update_date Like '%${condition.updateDate}%'
+			  </if>
+        </trim>
+    </sql>
+    
+    <insert id="insert" parameterType="QueryJoin">
+        INSERT INTO t_eva_queryjoin (
+	        id,
+		    qry_id,
+		    tb_name_l,
+		    col_l,
+		    tb_name_r,
+		    col_r,
+		    creater_id,
+		    creater_name,
+		    updater_id,
+		    updater_name,
+		    create_date,
+		    update_date
+        ) VALUES (
+         	#{id},
+       		#{qryId},
+       		#{tbNameL},
+       		#{colL},
+       		#{tbNameR},
+       		#{colR},
+       		#{createrId},
+       		#{createrName},
+       		#{updaterId},
+       		#{updaterName},
+       		#{createDate},
+       		#{updateDate}
+        )
+    </insert>
+
+    <!-- 更新 -->
+   	<update id="update" parameterType="QueryJoin">
+        UPDATE t_eva_queryjoin
+        <trim prefix="SET" suffixOverrides=",">
+          <if test="qryId!=null">
+           qry_id=#{qryId},
+          </if>
+          <if test="tbNameL!=null">
+           tb_name_l=#{tbNameL},
+          </if>
+          <if test="colL!=null">
+           col_l=#{colL},
+          </if>
+          <if test="tbNameR!=null">
+           tb_name_r=#{tbNameR},
+          </if>
+          <if test="colR!=null">
+           col_r=#{colR},
+          </if>
+          <if test="createrId!=null">
+           creater_id=#{createrId},
+          </if>
+          <if test="createrName!=null">
+           creater_name=#{createrName},
+          </if>
+          <if test="updaterId!=null">
+           updater_id=#{updaterId},
+          </if>
+          <if test="updaterName!=null">
+           updater_name=#{updaterName},
+          </if>
+          <if test="createDate!=null">
+           create_date=#{createDate},
+          </if>
+          <if test="updateDate!=null">
+           update_date=#{updateDate},
+          </if>
+        </trim>
+        WHERE
+        id =#{id}
+    </update>
+
+   	<update id="updateMap">
+        UPDATE t_eva_queryjoin
+        <trim prefix="SET" suffixOverrides=",">
+          <if test="map.qryId!=null">        
+           qry_id=#{map.qryId},
+          </if>
+          <if test="map.tbNameL!=null">        
+           tb_name_l=#{map.tbNameL},
+          </if>
+          <if test="map.colL!=null">        
+           col_l=#{map.colL},
+          </if>
+          <if test="map.tbNameR!=null">        
+           tb_name_r=#{map.tbNameR},
+          </if>
+          <if test="map.colR!=null">        
+           col_r=#{map.colR},
+          </if>
+          <if test="map.createrId!=null">        
+           creater_id=#{map.createrId},
+          </if>
+          <if test="map.createrName!=null">        
+           creater_name=#{map.createrName},
+          </if>
+          <if test="map.updaterId!=null">        
+           updater_id=#{map.updaterId},
+          </if>
+          <if test="map.updaterName!=null">        
+           updater_name=#{map.updaterName},
+          </if>
+          <if test="map.createDate!=null">        
+           create_date=#{map.createDate},
+          </if>
+          <if test="map.updateDate!=null">        
+           update_date=#{map.updateDate},
+          </if>
+        </trim>
+        WHERE
+       id = #{ map.id }
+	</update>
+
+
+     <insert id="insertMap" >
+        INSERT INTO t_eva_queryjoin (
+             	id,
+			 	qry_id,
+			 	tb_name_l,
+			 	col_l,
+			 	tb_name_r,
+			 	col_r,
+			 	creater_id,
+			 	creater_name,
+			 	updater_id,
+			 	updater_name,
+			 	create_date,
+			 	update_date,
+        ) VALUES (
+              	#{map.id},
+		    	#{map.qryId},
+		    	#{map.tbNameL},
+		    	#{map.colL},
+		    	#{map.tbNameR},
+		    	#{map.colR},
+		    	#{map.createrId},
+		    	#{map.createrName},
+		    	#{map.updaterId},
+		    	#{map.updaterName},
+		    	#{map.createDate},
+		    	#{map.updateDate},
+        )
+    </insert>
+
+
+  	<update id="updateNull" parameterType="QueryJoin">
+        UPDATE t_eva_queryjoin
+        <trim prefix="SET" suffixOverrides=","> 
+			    qry_id=#{qryId},
+			    tb_name_l=#{tbNameL},
+			    col_l=#{colL},
+			    tb_name_r=#{tbNameR},
+			    col_r=#{colR},
+			    creater_id=#{createrId},
+			    creater_name=#{createrName},
+			    updater_id=#{updaterId},
+			    updater_name=#{updaterName},
+			    create_date=#{createDate},
+			    update_date=#{updateDate},
+        </trim>
+        WHERE
+        id =#{id}
+    </update>
+
+   	<delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM t_eva_queryjoin
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id=#{id}
+        </trim>
+    </delete>
+
+
+ 	<delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM  t_eva_queryjoin 
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="map.id!=null">
+                AND id = #{map.id}
+            </if>				        
+			<if test="map.qryId!=null">
+				AND qry_id = #{map.qryId}
+			</if>				
+			<if test="map.tbNameL!=null">
+				AND tb_name_l = #{map.tbNameL}
+			</if>				
+			<if test="map.colL!=null">
+				AND col_l = #{map.colL}
+			</if>				
+			<if test="map.tbNameR!=null">
+				AND tb_name_r = #{map.tbNameR}
+			</if>				
+			<if test="map.colR!=null">
+				AND col_r = #{map.colR}
+			</if>				
+			<if test="map.createrId!=null">
+				AND creater_id = #{map.createrId}
+			</if>				
+			<if test="map.createrName!=null">
+				AND creater_name = #{map.createrName}
+			</if>				
+			<if test="map.updaterId!=null">
+				AND updater_id = #{map.updaterId}
+			</if>				
+			<if test="map.updaterName!=null">
+				AND updater_name = #{map.updaterName}
+			</if>				
+			<if test="map.createDate!=null">
+				AND create_date = #{map.createDate}
+			</if>				
+			<if test="map.updateDate!=null">
+				AND update_date = #{map.updateDate}
+			</if>				
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM t_eva_queryjoin WHERE
+        ${property}=#{value}
+    </delete>
+
+    <select id="fetch" parameterType="java.lang.Integer" resultType="QueryJoin">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_queryjoin
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id =#{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="QueryJoin">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_queryjoin WHERE
+        ${property}=#{value} 
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="QueryJoin">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_queryjoin WHERE
+       	${property} =#{value}
+    </select>
+
+    <select id="findAll" resultType="QueryJoin">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_queryjoin
+    </select>
+
+    <select id="queryPage" resultType="QueryJoin">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_queryjoin
+        <include refid="Query_condition" />    
+        <if test="condition.sort != null">
+			order by ${condition.sort}
+		</if>
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="QueryJoin">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_queryjoin
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id!=null">
+				AND id like '%#{id}%'
+			</if>
+			<if test="qryId!=null">
+				AND qry_id Like '%$ {condition.qryId}%'
+			</if>
+			<if test="tbNameL!=null">
+				AND tb_name_l Like '%$ {condition.tbNameL}%'
+			</if>
+			<if test="colL!=null">
+				AND col_l Like '%$ {condition.colL}%'
+			</if>
+			<if test="tbNameR!=null">
+				AND tb_name_r Like '%$ {condition.tbNameR}%'
+			</if>
+			<if test="colR!=null">
+				AND col_r Like '%$ {condition.colR}%'
+			</if>
+			<if test="createrId!=null">
+				AND creater_id Like '%$ {condition.createrId}%'
+			</if>
+			<if test="createrName!=null">
+				AND creater_name Like '%$ {condition.createrName}%'
+			</if>
+			<if test="updaterId!=null">
+				AND updater_id Like '%$ {condition.updaterId}%'
+			</if>
+			<if test="updaterName!=null">
+				AND updater_name Like '%$ {condition.updaterName}%'
+			</if>
+			<if test="createDate!=null">
+				AND create_date Like '%$ {condition.createDate}%'
+			</if>
+			<if test="updateDate!=null">
+				AND update_date Like '%$ {condition.updateDate}%'
+			</if>
+        </trim>
+    </select>
+
+
+ 	<select id="queryList" parameterType="java.util.Map" resultType="QueryJoin">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_queryjoin
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="map.id!=null">
+                AND id = #{map.id}
+            </if>
+			<if test="map.qryId!=null">
+				AND qry_id = #{map.qryId}
+			</if>
+			<if test="map.tbNameL!=null">
+				AND tb_name_l = #{map.tbNameL}
+			</if>
+			<if test="map.colL!=null">
+				AND col_l = #{map.colL}
+			</if>
+			<if test="map.tbNameR!=null">
+				AND tb_name_r = #{map.tbNameR}
+			</if>
+			<if test="map.colR!=null">
+				AND col_r = #{map.colR}
+			</if>
+			<if test="map.createrId!=null">
+				AND creater_id = #{map.createrId}
+			</if>
+			<if test="map.createrName!=null">
+				AND creater_name = #{map.createrName}
+			</if>
+			<if test="map.updaterId!=null">
+				AND updater_id = #{map.updaterId}
+			</if>
+			<if test="map.updaterName!=null">
+				AND updater_name = #{map.updaterName}
+			</if>
+			<if test="map.createDate!=null">
+				AND create_date = #{map.createDate}
+			</if>
+			<if test="map.updateDate!=null">
+				AND update_date = #{map.updateDate}
+			</if>
+        </trim>
+        ORDER BY ${orderBy} ${sortBy}
+    </select>
+
+   	<select id="queryOne" parameterType="java.util.Map" resultType="QueryJoin">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_eva_queryjoin
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="map.id!=null">
+                AND id = #{map.id}
+            </if>
+			<if test="map.qryId!=null">
+				AND qry_id = #{map.qryId}
+			</if>
+			<if test="map.tbNameL!=null">
+				AND tb_name_l = #{map.tbNameL}
+			</if>
+			<if test="map.colL!=null">
+				AND col_l = #{map.colL}
+			</if>
+			<if test="map.tbNameR!=null">
+				AND tb_name_r = #{map.tbNameR}
+			</if>
+			<if test="map.colR!=null">
+				AND col_r = #{map.colR}
+			</if>
+			<if test="map.createrId!=null">
+				AND creater_id = #{map.createrId}
+			</if>
+			<if test="map.createrName!=null">
+				AND creater_name = #{map.createrName}
+			</if>
+			<if test="map.updaterId!=null">
+				AND updater_id = #{map.updaterId}
+			</if>
+			<if test="map.updaterName!=null">
+				AND updater_name = #{map.updaterName}
+			</if>
+			<if test="map.createDate!=null">
+				AND create_date = #{map.createDate}
+			</if>
+			<if test="map.updateDate!=null">
+				AND update_date = #{map.updateDate}
+			</if>
+        </trim>
+        limit 0,1
+    </select>
+
+  	<select id="count" resultType="java.lang.Integer">
+        SELECT count(id) FROM t_eva_queryjoin
+        <include refid="Query_condition" />
+    </select>
+
+	<select id="selectMaxId" resultType="java.lang.Integer">
+	    SELECT
+	    MAX(id)
+	    FROM t_eva_queryjoin
+	</select>
+
+</mapper>
+

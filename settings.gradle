@@ -1,0 +1,8 @@
+rootProject.name = 'eden-eva'
+
+include 'eva-common'
+include 'eva-business'
+include 'eva-web'
+include 'eva-domain'
+include 'eva-jdbc'
+
