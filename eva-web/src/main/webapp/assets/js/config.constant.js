@@ -44,7 +44,7 @@ app.constant('JS_REQUIRES', {
 
         'reportCtrl': 'assets/js/controllers/biz/report/reportCtrl.js',
         'reportDetailCtrl': 'assets/js/controllers/biz/report/reportDetailCtrl.js',
-        'reportCreateCtrl': 'assets/js/controllers/biz/report/reportCreateCtrl.js',
+        'reportCreateCtrl': 'assets/js/controllers/biz/report/reportcreateCtrl.js',
         'iconsCtrl': 'assets/js/controllers/iconsCtrl.js',
         'vAccordionCtrl': 'assets/js/controllers/vAccordionCtrl.js',
         'ckeditorCtrl': 'assets/js/controllers/ckeditorCtrl.js',
